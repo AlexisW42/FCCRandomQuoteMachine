@@ -1,33 +1,37 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import quotes from "./assets/quotes.json";
 import './App.css'
 
+const getCita = () => {
+  console.log(quotes.quotes.length)
+  return quotes.quotes[Math.floor(Math.random() * quotes.quotes.length)];
+};
+
 function App() {
-  const [count, setCount] = useState(0)
+  
+const cambiarCita = () => {
+  setCita(getCita());
+};  
+  const [cita, setCita] = useState(getCita());
+  console.log(cita);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+      <div id="quote-box">
+        <div>
+          <span id="text">{cita.quote}</span>
+        </div>
+        <div>- <span id="author">{cita.author}</span></div>
+        <div>
+        <a
+            href={`https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${cita.quote}`}
+            id="tweet-quote"
+          >
+            Tweet this quote
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+          <button onClick={cambiarCita} id="new-quote">New quote</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
